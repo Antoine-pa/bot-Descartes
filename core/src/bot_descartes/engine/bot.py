@@ -16,6 +16,7 @@ class Bot(commands.Bot):
         await self.add_cog(TrollCog(self))
         await self.add_cog(EventCog(self))
         await self.add_cog(AdministrationCog(self))
+        await self.add_cog(MathsCog(self))
         await self.add_cog(self.loop_ratio_cog)
         await self.tree.sync()
     
