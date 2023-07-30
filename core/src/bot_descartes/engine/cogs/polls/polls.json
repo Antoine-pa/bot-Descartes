@@ -1,0 +1,98 @@
+{
+    "1135261222447611904": {
+        "guild": 1115733653323001957,
+        "channel": 1115733653922795614,
+        "choices": [
+            [
+                "option 1",
+                0
+            ],
+            [
+                "option 2",
+                0
+            ],
+            [
+                "option 3",
+                0
+            ],
+            [
+                "option 4",
+                0
+            ],
+            [
+                "option 5",
+                0
+            ],
+            [
+                "option 6",
+                0
+            ],
+            [
+                "(on peut en mettre 14)",
+                0
+            ]
+        ]
+    },
+    "1135261559325720736": {
+        "guild": 1115733653323001957,
+        "channel": 1115733653922795614,
+        "choices": [
+            [
+                "option 1",
+                2
+            ],
+            [
+                "option 2",
+                2
+            ],
+            [
+                "option 3",
+                2
+            ],
+            [
+                "option 4",
+                2
+            ],
+            [
+                "option 5",
+                0
+            ],
+            [
+                "option 6",
+                0
+            ],
+            [
+                "(on peut en mettre 14)",
+                1
+            ],
+            [
+                "option 8",
+                0
+            ],
+            [
+                "option 9",
+                0
+            ],
+            [
+                "option 10",
+                4
+            ],
+            [
+                "option 11",
+                1
+            ],
+            [
+                "option 12",
+                5
+            ],
+            [
+                "option 13",
+                3
+            ],
+            [
+                "bon j'avoue en vrai c'est long \u00e0 remplir",
+                3
+            ]
+        ]
+    }
+}

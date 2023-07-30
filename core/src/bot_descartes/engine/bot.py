@@ -8,8 +8,9 @@ from .utils import *
 class Bot(commands.Bot):
     def __init__(self):
         self.guild = discord.Object("1115733653323001957")
-        self.tools = Tools()
+        self.tools:Tools = Tools()
         self.loop_ratio_cog = LoopRatioCog(self)
+        self.polls_cog = PollCog(self)
         super().__init__(command_prefix="!:", help_command=None, intents=discord.Intents.all())
     
     async def setup_hook(self):
@@ -17,6 +18,7 @@ class Bot(commands.Bot):
         await self.add_cog(EventCog(self))
         await self.add_cog(AdministrationCog(self))
         await self.add_cog(MathsCog(self))
+        await self.add_cog(self.polls_cog)
         await self.add_cog(self.loop_ratio_cog)
         await self.tree.sync()
     
