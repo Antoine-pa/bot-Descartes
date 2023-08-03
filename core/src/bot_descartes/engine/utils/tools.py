@@ -1,5 +1,6 @@
 import json
 import discord
+from discord.ext import commands
 
 class Tools:
     def __init__(self):
@@ -8,22 +9,25 @@ class Tools:
         self.path_loops = self.path_cogs+"loops/"
         self.path_maths = self.path_cogs+"maths/"
         self.path_polls = self.path_cogs+"polls/"
+        self.path_tournaments = self.path_cogs+"tournaments/"
         self.path_pictures_polls = self.path_polls+"pictures/"
         self.path_prictures_maths = self.path_maths+"pictures/"
-        self.list_alphabet_react = ["🇦", "🇧", "🇨", "🇩", "🇪", "🇫", "🇬", "🇭", "ℹ️", "🇯", "🇰", "🇱", "🇲", "🇳"]
-        self.list_react_color = ["<:circle_0:1135250771777171588>", "<:circle_1:1135250877213573241>", "<:circle_2:1135250868409749575>", "<:circle_3:1135250866962698260>", "<:circle_4:1135250864592932995>", "<:circle_5:1135250863292682270>", "<:circle_6:1135250861715628124>", "<:circle_7:1135250859329077349>", "<:circle_8:1135250857814921236>", "<:circle_9:1135250854803415060>", "<:circle_10:1135250853327028374>", "<:circle_11:1135250851271802921>", "<:circle_12:1135250848432279753>", "<:circle_13:1135250846041522199>"]
+        self.list_react_color = ['<:number_0:1135985729504284712>', '<:number_1:1135985726392119388>', '<:number_2:1135985677104853032>', '<:number_3:1135985675016097842>', '<:number_4:1135985673367728219>', '<:number_5:1135985670188441663>', '<:number_6:1135985669253116035>', '<:number_7:1135985667499901018>', '<:number_8:1135985665251749898>', '<:number_9:1135985663444009011>', '<:number_10:1135985660994519132>', '<:number_11:1135985659602022450>', '<:number_12:1135985658264039545>', '<:number_13:1135985655940386866>']
 
-    def load_json(self, path):
+    @staticmethod
+    def load_json(path):
         data = None
         with open(path, "r") as f:
             data = json.load(f)
         return data
     
-    def save_json(self, path, data):
+    @staticmethod
+    def save_json(path, data):
         with open(path, "w") as f:
             f.write(json.dumps(data, indent=4))
     
-    def embed(self, title: str, color: discord.Colour, message: str, fields: list = None, image: discord.File = None, footer: str = None):
+    @staticmethod
+    def embed(title: str, color: discord.Colour, message: str, fields: list = None, image: discord.File = None, footer: str = None):
         embed = discord.Embed(title = title, description=message, color=color)
         if fields is not None:
             for field in fields:
@@ -31,3 +35,6 @@ class Tools:
         if footer is not None:
             embed.set_footer(text=footer)
         return embed
+    
+    async def get_message(self, bot: commands.Bot, channel_id: int, message_id: int) -> discord.Message:
+        return await bot.get_channel(channel_id).fetch_message(message_id)

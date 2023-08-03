@@ -11,3 +11,11 @@ class MathsCog(commands.Cog):
     async def cercle_trigo_command(self, interaction: discord.Interaction):
         with open(self.bot.tools.path_prictures_maths+"cercle_trigo.jpg", "rb") as f:
             await interaction.response.send_message(content="Cercle Trigonométrique :", file=discord.File(f))
+    
+    @app_commands.command(name="solve_system", description="Résout un système d'équation")
+    async def solve_system_command(self, interaction: discord.Interaction):
+        await interaction.response.send_message("comming soon...")
+
+    @app_commands.command(name="eval", description="évalue une expression")
+    async def eval_command(self, interaction: discord.Interaction, expression: str):
+        await interaction.response.send_message("comming soon...")
