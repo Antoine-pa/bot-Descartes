@@ -1,3 +1,8 @@
 from engine import Bot
+from dotenv import load_dotenv
+from os import getenv
 
-Bot().run("MTEzMjM2MjMwMDg5NzExMjIzNQ.GltSqj.M4y8mDGqA-vufLRk0p712TYcTswc1dLJ9f6lIw")
+load_dotenv()
+TOKEN = getenv('BOT_TOKEN')
+
+Bot().run(TOKEN)
