@@ -13,25 +13,21 @@ La fonction asynchrone correspondant à une commande doit être nommée
 ## Ajouter un `Cog`
 
 - Choisir le nom de la catégorie du `Cog` (snake_case).
-- Créer le dossier `core/src/bot_descartes/engine/cogs/{nom}`.
-- Créer le fichier `core/src/bot_descartes/engine/cogs/{nom}/{nom}_commands.py`.
-- Créer la classe `{Nom}Cog` dans `{nom}_commands.py`.
-- Créer le fichier `core/src/bot_descartes/engine/cogs/{nom}/__init__.py`.
-- Y écrire
+- Créer le fichire `cogs/{nom}.py`.
+- Créer la classe `{Nom}Cog` dans `cogs/{nom}.py`.
+- Ajouter la ligne suivante au fichier `bot.py`:
 ```py
-from .{nom}_commands import {Nom}Cog
-from .{nom} import {Nom}Cog
+import cogs.{nom}
 ```
-- Instancier le `Cog` et l'ajouter au bot dans
-  `core/src/bot_descartes/engine/bot.py` dans la méthode `setup_hook`.
+- Ajouter `cogs.{nom}.{Nom}Cog` à la liste `cogs` dans ce même fichier.
 
 ## Contenu d'un `Cog`
 
 Un `Cog` doit avoir pour attribut l'instance du bot, et il doit
-contenir une commande ou un évennement.
+contenir une commande ou un événement.
 
-Il faut créer les évennements dans
-`core/src/bot_descartes/engine/cogs/events/event.py` et se réferer à
+Il faut créer les événements dans
+`cogs/event.py` et se réferer à
 [la documentation de la bibliothèque discord.py](https://discordpy.readthedocs.io/en/stable/api.html#event-reference)
 pour plus de détails.
 
@@ -40,31 +36,27 @@ Pour la création d'une commande, se référer aux `Cog` existants et à
 
 Pour l'utilisation de composants Discord (boutons, menus déroulants,
 entrée textuelle), voir l'exemple dans
-`core/src/bot_descartes/engine/cogs/tournaments/tournaments_commands.py`
+`cogs/tournament.py`
 et se référer à
 [la documentation](https://docs.discord4py.dev/en/latest/).
-
-Ajouter un dossier `pictures` si on veut stocker des images.
-
-Ajouter le chemin du dossier du `Cog` en attribut de la classe `Tools`
-de `core/src/bot_descartes/engine/utils/tools.py`
 
 Y ajouter un chemin pour les images si applicable.
 
 Pour créer une boucle, il faut
 - Créer le fichier de la boucle dans
-`core/src/bot_descartes/engine/loops/`.
-- Se référer à `core/src/bot_descartes/engine/loops/ratios.py`
+`cogs/loops/`.
+- Se référer à `cogs/loops/ratios.py`
 
 Lors de la création d'une commande "à risques" pour les serveurs, se
 référer aux vérifications des commandes d'administration
-(`core/src/bot_descartes/engine/admin/administration_commands.py`).
+(`cogs/admin.py`).
 
 ## Sauvegarde de données
 
 La sauvegarde des données utilise temporairement le format JSON.
 
 Pour utiliser un fichier JSON:
+- Importer `read_json` et `write_json` depuis `utils.py`
 - Créer le fichier dans le dossier du `Cog` qui l'utilisera.
 - Ajouter un attribut dans `core/src/bot_descartes/utils/Tools` avec
 le chemin vers le dossier du `Cog` (voir les attributs existants pour
@@ -72,8 +64,9 @@ exemple).
 - Ajouter un atribut `data_{fichier}` au `Cog` utilisant le fichier et
 y affecter le retour de
 ```py
-self.bot.tools.load_json(self.bot.tools.path_{Cog}+"{fichier}.json")
+read_json(f'PATHS["storage"]/{fichier}.json')
 ```
+Il est recommandé de définir `'fichier.json'` comme variable d'environnement.
 
 ## Contribution par git
 
