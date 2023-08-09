@@ -72,7 +72,7 @@ class SelectMenuTournament(discord.ui.Select):
         
 class SelectMenuTournamentView(discord.ui.View):
     def __init__(self, bot: commands.Bot, tournament, message, user):
-        super().__init__(timeout=120)
+        super().__init__(timeout=10)
         self.bot = bot
         self.message = message
         self.tournament = tournament
@@ -83,11 +83,13 @@ class SelectMenuTournamentView(discord.ui.View):
         return interaction.user == self.user
     
     async def on_timeout(self):
+        if self.children == []:
+            return
         del self.tournament.data_tournament[str(self.message.id)]
         self.bot.tools.save_json(self.bot.tools.path_tournaments+"tournaments.json", self.tournament.data_tournament)
         await self.message.channel.send("tournois annulé", delete_after=10)
         await self.message.delete()
-        del self
+        self.stop()
 
 
 class TournamentCog(commands.Cog):

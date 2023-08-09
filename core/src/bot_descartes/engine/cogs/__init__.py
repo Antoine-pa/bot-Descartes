@@ -5,3 +5,4 @@ from .admin import AdministrationCog
 from .maths import MathsCog
 from .polls import PollCog
 from .tournaments import TournamentCog
+from .sandbox import *
