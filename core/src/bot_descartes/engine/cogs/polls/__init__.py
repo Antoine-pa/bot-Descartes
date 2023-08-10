@@ -1,1 +1,0 @@
-from .poll_command import PollCog

@@ -1,1 +1,0 @@
-from .tournaments_commands import TournamentCog
