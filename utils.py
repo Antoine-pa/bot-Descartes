@@ -3,8 +3,12 @@ from discord import Colour, File, Embed, Message
 from discord.ext.commands import Bot
 
 def read_json(path: str):
-    with open(path, 'r') as f:
-        return json.load(f)
+    try:
+        with open(path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        write_json(path, {})
+        return {}
 
 def write_json(path: str, data):
     with open(path, 'w') as f:

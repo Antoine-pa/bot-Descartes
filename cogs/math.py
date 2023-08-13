@@ -1,6 +1,9 @@
 from discord.ext.commands import Cog, Bot
 from discord import app_commands, Interaction
 from discord.ui import Modal, TextInput
+from matrice import Matrice
+import math 
+import random
 
 class InputSystem(Modal):
     def __init__(self, inconnues: int, title: str):
@@ -33,6 +36,9 @@ class MathCog(Cog):
         await interaction.response.send_modal(InputSystem(inconnues, solution))
 
     @app_commands.command(name='eval', description='Évalue une expression')
-    async def eval_comand(self, interaction: Interaction, expr: str):
-        await interaction.response.send_message('WIP')
-
+    async def eval_comand(self, interaction: Interaction, expression: str):
+        try:
+            result = eval(expression, {"__buitins__": None, "Matrice": Matrice, "M": Matrice, "maths": math, "math": math, "m": math, "random": random, "r": random})
+        except Exception as e:
+            result = "Error :\n" + str(e)
+        await interaction.response.send_message("input :\n```py\n" + expression + "\n```\noutput :\n```\n" + str(result)+"\n```")
