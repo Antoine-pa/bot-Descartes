@@ -1,0 +1,8 @@
+TOKEN=""
+GUILD=""
+GUILD_OWNER=""
+ROLE_FLOP="floppeur"
+RATIO_STORAGE="ratios.json"
+FLOPS_STORAGE="flops.json"
+TOURNAMENTS_STORAGE="tournaments.json"
+POLLS_STORAGE="polls.json"
