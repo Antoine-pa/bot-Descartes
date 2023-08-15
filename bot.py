@@ -12,6 +12,7 @@ import cogs.math
 import cogs.poll
 import cogs.tournament
 import cogs.troll
+import cogs.archive
 
 PREFIX='!:'
 
@@ -22,7 +23,8 @@ cogs = [
     cogs.math.MathCog,
     cogs.poll.PollCog,
     cogs.tournament.TournamentCog,
-    cogs.troll.TrollCog
+    cogs.troll.TrollCog,
+    cogs.archive.ArchiveCog
 ]
 
 class Bot(commands.Bot):

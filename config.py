@@ -13,7 +13,8 @@ add_paths(PATHS['cogs'], ['admin',
                           'math',
                           'poll',
                           'tournament',
-                          'troll'], '.py')
+                          'troll',
+                          'archive'], '.py')
 add_paths(PATHS['cogs'], ['math'])
 add_paths(PATHS['cogs'], ['loops'])
 
