@@ -1,6 +1,8 @@
 import json
 from discord import Colour, File, Embed, Message
 from discord.ext.commands import Bot
+import time
+import datetime
 
 def read_json(path: str):
     try:
@@ -29,5 +31,11 @@ def build_embed(title: str,
         embed.set_footer(text=footer)
     return embed
 
-async def fetch_message(self, bot: Bot, chan_id, msg_id) -> Message:
+async def fetch_message(bot: Bot, chan_id, msg_id) -> Message:
     return await bot.get_channel(chan_id).fetch_message(msg_id)
+
+def date_to_timestamp(date: str) -> int:
+    if date.count("/") != 2:
+        return
+    timestamp = time.mktime(datetime.datetime.strptime(date, "%d/%m/%Y").timetuple()) + 68400 #19h
+    return timestamp
