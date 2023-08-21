@@ -24,7 +24,7 @@ cogs = [
     cogs.poll.PollCog,
     cogs.tournament.TournamentCog,
     cogs.troll.TrollCog,
-    cogs.archive.ArchiveCog
+    cogs.archive.ArchiveCog,
 ]
 
 class Bot(commands.Bot):

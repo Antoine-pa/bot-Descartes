@@ -34,3 +34,5 @@ REACT_COLORS = [f'<:number_{k}:{i}>' for k, i in enumerate([f'1135985{x}'
                                                              '659602022450',
                                                              '658264039545',
                                                              '655940386866']])]
+PICTURES_ETXTENSIONS = ["jpg", "png", "jpeg", "rgb", "gif", "pbm", "pgm", "ppm", "tiff", "rast", "xbm", "bmp", "webp", "exr"]
+DAYS = [1*24*60*60, 3*24*60*60, 6*24*60*60, 15*24*60*60, 31*24*60*60, 91*24*60*60]

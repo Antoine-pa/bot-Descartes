@@ -39,3 +39,9 @@ def date_to_timestamp(date: str) -> int:
         return
     timestamp = time.mktime(datetime.datetime.strptime(date, "%d/%m/%Y").timetuple()) + 68400 #19h
     return timestamp
+
+def get_file_archive_name(level: str, subject: str, name: str, archive: dict, index: int) -> str:
+    return f"{level}_{subject}_{name}_{index}.{archive['files'][index]['type']}"
+
+def date(timestamp):
+    return f"<t:{int(timestamp)}>"

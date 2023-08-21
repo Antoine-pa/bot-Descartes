@@ -114,7 +114,7 @@ class RatioCog(Cog):
             del self.data_ratio[r]
         self.save_data_ratio()
 
-    @tasks.loop(seconds=1)
+    @tasks.loop(seconds=5)
     async def flops_loop(self):
         delete_flop = []
         
