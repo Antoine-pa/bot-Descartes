@@ -10,6 +10,8 @@ from os import getenv, rename
 from utils import write_json, read_json, date_to_timestamp, build_embed, get_file_archive_name, date
 from time import time
 import datetime
+from typing import Literal
+
 timezone = datetime.timezone.utc
 timeloop = [datetime.time(hour=19-2, minute=0, second=0, tzinfo=timezone)]
 load_dotenv()
@@ -260,6 +262,7 @@ class ArchiveCog(Cog):
         embed = build_embed(title="Création d'une archive :", color=Colour.blue(), message=f"L'archive {name} de {subject} en {level} a été créé.")
         await interaction.response.send_message(embed=embed)
 
+
     @get_group.command(name='archive', description='Renvoit une archive.')
     async def get_archive_command(self, interaction: Interaction, level: str, subject: str, archive: str):
         level = self.get_level(level)
@@ -418,9 +421,87 @@ class ArchiveCog(Cog):
                             print("faire les logs de delete worker pourpotentiellement les remettres")
         if send:
             await asyncio.sleep(30)
+
     @Cog.listener()
     async def on_ready(self):
-        self.data_archives["terminale"]["maths"]["int_gauss"]["timestamp"] = time()-24*60*60
-        write_json(path_archives, self.data_archives)
-        await asyncio.sleep(1)
         self.archive_work_loop.start()
+
+    #AUTOCOMPLETION
+    @subjects_command.autocomplete("level")
+    @add_subject_command.autocomplete("level")
+    @rename_subject_command.autocomplete("level")
+    @delete_subject_command.autocomplete("level")
+    @archives_command.autocomplete("level")
+    @add_archive_command.autocomplete("level")
+    @get_archive_command.autocomplete("level")
+    @start_learn_archive_command.autocomplete("level")
+    @stop_learn_archive_command.autocomplete("level")
+    @delete_file_command.autocomplete("level")
+    @add_file_command.autocomplete("level")
+    @change_file_command.autocomplete("level")
+    @insert_file_command.autocomplete("level")
+    @purge_archive_command.autocomplete("level")
+    async def autocomplete_level(self, interaction: Interaction, current: str)-> list[app_commands.Choice[str]]:
+        levels = self.data_archives.keys()
+        return [
+            app_commands.Choice(name=level, value=level)
+            for level in levels if current.lower() in level.lower()
+        ][:25]
+    
+    @rename_subject_command.autocomplete("subject")
+    @delete_subject_command.autocomplete("subject")
+    @archives_command.autocomplete("subject")
+    @add_archive_command.autocomplete("subject")
+    @get_archive_command.autocomplete("subject")
+    @start_learn_archive_command.autocomplete("subject")
+    @stop_learn_archive_command.autocomplete("subject")
+    @delete_file_command.autocomplete("subject")
+    @add_file_command.autocomplete("subject")
+    @change_file_command.autocomplete("subject")
+    @insert_file_command.autocomplete("subject")
+    @purge_archive_command.autocomplete("subject")
+    async def autocomplete_subject(self, interaction: Interaction, current: str) -> list[app_commands.Choice[str]]:
+        level = interaction.namespace.level
+        if level in self.data_archives:
+            subjects = self.data_archives[level].keys()
+            return [
+                app_commands.Choice(name=subject, value=subject)
+                for subject in subjects if current.lower() in subject.lower()
+            ][:25]
+        return []
+
+    @get_archive_command.autocomplete("archive")
+    @start_learn_archive_command.autocomplete("archive")
+    @stop_learn_archive_command.autocomplete("archive")
+    @delete_file_command.autocomplete("archive")
+    @add_file_command.autocomplete("archive")
+    @change_file_command.autocomplete("archive")
+    @insert_file_command.autocomplete("archive")
+    @purge_archive_command.autocomplete("archive")
+    async def autocomplete_archive(self, interaction: Interaction, current: str) -> list[app_commands.Choice[str]]:
+        level = interaction.namespace.level
+        if level in self.data_archives:
+            subject = interaction.namespace.subject
+            if subject in self.data_archives[level]:
+                archives = self.data_archives[level][subject].keys()
+                return [
+                    app_commands.Choice(name=archive, value=archive)
+                    for archive in archives if current.lower() in archive.lower()
+                ][:25]
+        return []
+    
+    @delete_file_command.autocomplete("index")
+    @change_file_command.autocomplete("index")
+    @insert_file_command.autocomplete("index")
+    async def autocomplete_index_file(self, interaction: Interaction, current: int) -> list[app_commands.Choice[int]]:
+        level = interaction.namespace.level
+        if level in self.data_archives:
+            subject = interaction.namespace.subject
+            if subject in self.data_archives[level]:
+                archive = interaction.namespace.archive
+                if archive in self.data_archives[level][subject]:
+                    numbers = [str(i) for i in range(min(len(self.data_archives[level][subject][archive]["files"]), 25)) if current.lower() in str(i)]
+                    return [
+                        app_commands.Choice(name=i, value=int(i))
+                        for i in numbers
+                    ]
