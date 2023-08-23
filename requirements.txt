@@ -10,3 +10,4 @@ multidict==6.0.4
 Pillow==10.0.0
 python-dotenv==1.0.0
 yarl==1.9.2
+matrice @ git+https://github.com/Antoine-pa/matrice.git
