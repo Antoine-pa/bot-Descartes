@@ -45,8 +45,20 @@ mkdir ./pictures ./storage
 
 ## Lancer le bot
 
-Pour lancer le bot, la commande est la suivante :
+- Pour lancer une instance d'un bot de test :
+
+```sh
+python3 main.py test
+```
+
+ou simplement :
 
 ```sh
 python3 main.py
+```
+
+- Pour lancer l'instance officielle :
+
+```sh
+python3 main.py prod
 ```

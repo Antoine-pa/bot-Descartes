@@ -1,4 +1,5 @@
-TOKEN=""
+TOKEN_TEST=""
+TOKEN_PROD=""
 GUILD=""
 GUILD_OWNER=""
 ROLE_FLOP="floppeur"
